@@ -69,11 +69,6 @@
       grid-template-columns: 1fr 1fr; 
       gap: 15px; 
     }
-    .grid-3 { 
-      display: grid; 
-      grid-template-columns: 1fr 1fr 1fr; 
-      gap: 15px; 
-    }
     .input-group { 
       display: flex; 
       flex-direction: column; 
@@ -150,7 +145,7 @@
     }
     
     @media (max-width: 600px) {
-      .grid-2, .grid-3 { 
+      .grid-2 { 
         grid-template-columns: 1fr; 
       }
       body {
@@ -211,48 +206,9 @@
           <input type="text" id="f-participantes" placeholder="Lista de jogadores participantes">
         </div>
         
-        <div class="grid-3">
-          <div class="input-group">
-            <label for="f-atividade-realizada">Atividade Realizada?</label>
-            <select id="f-atividade-realizada">
-              <option value="Sim">Sim</option>
-              <option value="Não">Não</option>
-              <option value="Em Andamento">Em Andamento</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label for="f-objetivo-concluido">Objetivo Concluído?</label>
-            <select id="f-objetivo-concluido">
-              <option value="Sim">Sim</option>
-              <option value="Não">Não</option>
-              <option value="Parcialmente">Parcialmente</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label for="f-dano-recebido">Dano Recebido</label>
-            <select id="f-dano-recebido">
-              <option value="Nenhum">Nenhum</option>
-              <option value="Leve">Leve</option>
-              <option value="Moderado">Moderado</option>
-              <option value="Grave">Grave</option>
-              <option value="Crítico">Crítico</option>
-            </select>
-          </div>
-        </div>
-        
         <div class="input-group">
-          <label for="f-descricao">Descrição do Desempenho</label>
-          <textarea id="f-descricao" placeholder="Descreva seu desempenho na atividade, estratégias utilizadas, dificuldades enfrentadas, etc..."></textarea>
-        </div>
-        
-        <div class="input-group">
-          <label for="f-melhoria">Áreas para Melhoria</label>
-          <textarea id="f-melhoria" placeholder="Quais áreas você acredita que precisa melhorar?"></textarea>
-        </div>
-        
-        <div class="input-group">
-          <label for="f-comentarios">Comentários Adicionais</label>
-          <textarea id="f-comentarios" placeholder="Outras observações que considerar relevantes..."></textarea>
+          <label for="f-objetivo">Objetivo da Atividade</label>
+          <textarea id="f-objetivo" placeholder="Qual foi o objetivo principal desta atividade?"></textarea>
         </div>
       </fieldset>
     </div>
@@ -312,15 +268,10 @@
           const grau = escapeHTML(getVal('f-grau'));
           const link = escapeAttr(getVal('f-link'));
           const participantes = escapeHTML(getVal('f-participantes'));
-          const atividadeRealizada = escapeHTML(getVal('f-atividade-realizada'));
-          const objetivoConcluido = escapeHTML(getVal('f-objetivo-concluido'));
-          const danoRecebido = escapeHTML(getVal('f-dano-recebido'));
-          const descricao = escapeHTML(getVal('f-descricao'));
-          const melhoria = escapeHTML(getVal('f-melhoria'));
-          const comentarios = escapeHTML(getVal('f-comentarios'));
+          const objetivo = escapeHTML(getVal('f-objetivo'));
 
-          // Template com cores azuis para diferenciação
-          const codigoTemplate = `<link href="https://gaaaaaaaaabs.github.io/goldenagerepositor.io/combate.css" rel="stylesheet" type="text/css"> <div class="avaliacao-request"> <div class="avaliacao-header"> <div class="avaliacao-title"> <h3>PEDIDO DE AVALIAÇÃO</h3> <span class="avaliacao-status" data-status="1">Status: Aguardando Avaliação</span> </div> </div> <div class="avaliacao-content"> <div class="avaliacao-field"> <span class="avaliacao-label">Jogador:</span> <span class="avaliacao-value">${jogador || 'SeuNomeAqui'}</span> </div> <div class="avaliacao-field"> <span class="avaliacao-label">Personagem:</span> <span class="avaliacao-value">${personagem || 'NomeDoPersonagem'}</span> </div> <div class="avaliacao-field"> <span class="avaliacao-label">Tipo de Atividade:</span> <span class="avaliacao-value">${tipo || 'Tipo de Atividade'}</span> </div> <div class="avaliacao-field"> <span class="avaliacao-label">Grau/Nível:</span> <span class="avaliacao-value">${grau || 'Grau da Atividade'}</span> </div> <div class="avaliacao-field"> <span class="avaliacao-label">Link da Atividade:</span> <span class="avaliacao-value">${link ? '[url=' + link + ']Clique aqui[/url]' : 'Nenhum link fornecido'}</span> </div> <div class="avaliacao-field"> <span class="avaliacao-label">Participantes:</span> <span class="avaliacao-value">${participantes || 'Lista de participantes'}</span> </div> <div class="avaliacao-field"> <span class="avaliacao-label">Atividade Realizada:</span> <span class="avaliacao-value">${atividadeRealizada || 'Sim/Não'}</span> </div> <div class="avaliacao-field"> <span class="avaliacao-label">Objetivo Concluído:</span> <span class="avaliacao-value">${objetivoConcluido || 'Sim/Não/Parcialmente'}</span> </div> <div class="avaliacao-field"> <span class="avaliacao-label">Dano Recebido:</span> <span class="avaliacao-value">${danoRecebido || 'Nenhum/Leve/Moderado/Grave/Crítico'}</span> </div> <div class="avaliacao-field full-width"> <span class="avaliacao-label">Descrição do Desempenho:</span> <span class="avaliacao-value">${descricao || 'Descrição do desempenho na atividade...'}</span> </div> <div class="avaliacao-field full-width"> <span class="avaliacao-label">Áreas para Melhoria:</span> <span class="avaliacao-value">${melhoria || 'Áreas que o jogador acredita precisar melhorar...'}</span> </div> <div class="avaliacao-field full-width"> <span class="avaliacao-label">Comentários Adicionais:</span> <span class="avaliacao-value">${comentarios || 'Outras observações relevantes...'}</span> </div> </div> <div class="avaliacao-footer"> <div class="avaliacao-master"> <b>Avaliador Responsável:</b> <span style="color: #82b1ff;">Aguardando designação</span> </div> <div class="avaliacao-notes"> <b>Feedback do Avaliador:</b> <span style="color: #82b1ff;">Aguardando avaliação.</span> </div> </div> </div> <style> .avaliacao-request { background: linear-gradient(135deg, #1a1a2e 0%, #0c0c1a 100%); border: 2px solid #2979ff; border-radius: 10px; margin: 15px 0; overflow: hidden; color: #e7e9ff; font-family: Arial, sans-serif; } .avaliacao-header { background: rgba(41, 121, 255, 0.2); padding: 15px 20px; border-bottom: 1px solid #333; } .avaliacao-title { display: flex; justify-content: space-between; align-items: center; } .avaliacao-title h3 { margin: 0; color: #82b1ff; font-size: 1.3em; } .avaliacao-status { background: #2979ff; color: white; padding: 5px 10px; border-radius: 4px; font-size: 0.9em; font-weight: bold; } .avaliacao-content { padding: 20px; } .avaliacao-field { display: flex; margin-bottom: 12px; align-items: flex-start; } .avaliacao-field.full-width { flex-direction: column; } .avaliacao-label { font-weight: bold; width: 160px; flex-shrink: 0; color: #bfc6e6; } .avaliacao-value { color: #82b1ff; flex: 1; } .avaliacao-field.full-width .avaliacao-value { margin-top: 5px; background: rgba(0, 0, 0, 0.2); padding: 10px; border-radius: 4px; border-left: 3px solid #2979ff; } .avaliacao-footer { background: rgba(0, 0, 0, 0.3); padding: 12px 20px; border-top: 1px solid #333; text-align: center; } .avaliacao-master { color: #bfc6e6; font-size: 0.95em; margin-bottom: 8px; } .avaliacao-notes { color: #bfc6e6; font-size: 0.95em; } </style>`;
+          // Template simplificado e focado
+          const codigoTemplate = `<link href="https://gaaaaaaaaabs.github.io/goldenagerepositor.io/combate.css" rel="stylesheet" type="text/css"> <div class="avaliacao-request"> <div class="avaliacao-header"> <div class="avaliacao-title"> <h3>PEDIDO DE AVALIAÇÃO</h3> <span class="avaliacao-status" data-status="1">Status: Aguardando Avaliação</span> </div> </div> <div class="avaliacao-content"> <div class="avaliacao-field"> <span class="avaliacao-label">Jogador:</span> <span class="avaliacao-value">${jogador || 'SeuNomeAqui'}</span> </div> <div class="avaliacao-field"> <span class="avaliacao-label">Personagem:</span> <span class="avaliacao-value">${personagem || 'NomeDoPersonagem'}</span> </div> <div class="avaliacao-field"> <span class="avaliacao-label">Tipo de Atividade:</span> <span class="avaliacao-value">${tipo || 'Tipo de Atividade'}</span> </div> <div class="avaliacao-field"> <span class="avaliacao-label">Grau/Nível:</span> <span class="avaliacao-value">${grau || 'Grau da Atividade'}</span> </div> <div class="avaliacao-field"> <span class="avaliacao-label">Link da Atividade:</span> <span class="avaliacao-value">${link ? '[url=' + link + ']Clique aqui[/url]' : 'Nenhum link fornecido'}</span> </div> <div class="avaliacao-field"> <span class="avaliacao-label">Participantes:</span> <span class="avaliacao-value">${participantes || 'Lista de participantes'}</span> </div> <div class="avaliacao-field full-width"> <span class="avaliacao-label">Objetivo:</span> <span class="avaliacao-value">${objetivo || 'Objetivo da atividade...'}</span> </div> </div> <div class="avaliacao-footer"> <div class="avaliacao-master"> <b>Avaliador Responsável:</b> <span style="color: #82b1ff;">Aguardando designação</span> </div> <div class="avaliacao-notes"> <b>Feedback do Avaliador:</b> <span style="color: #82b1ff;">Aguardando avaliação.</span> </div> </div> </div> <style> .avaliacao-request { background: linear-gradient(135deg, #1a1a2e 0%, #0c0c1a 100%); border: 2px solid #2979ff; border-radius: 10px; margin: 15px 0; overflow: hidden; color: #e7e9ff; font-family: Arial, sans-serif; } .avaliacao-header { background: rgba(41, 121, 255, 0.2); padding: 15px 20px; border-bottom: 1px solid #333; } .avaliacao-title { display: flex; justify-content: space-between; align-items: center; } .avaliacao-title h3 { margin: 0; color: #82b1ff; font-size: 1.3em; } .avaliacao-status { background: #2979ff; color: white; padding: 5px 10px; border-radius: 4px; font-size: 0.9em; font-weight: bold; } .avaliacao-content { padding: 20px; } .avaliacao-field { display: flex; margin-bottom: 12px; align-items: flex-start; } .avaliacao-field.full-width { flex-direction: column; } .avaliacao-label { font-weight: bold; width: 140px; flex-shrink: 0; color: #bfc6e6; } .avaliacao-value { color: #82b1ff; flex: 1; } .avaliacao-field.full-width .avaliacao-value { margin-top: 5px; background: rgba(0, 0, 0, 0.2); padding: 10px; border-radius: 4px; border-left: 3px solid #2979ff; } .avaliacao-footer { background: rgba(0, 0, 0, 0.3); padding: 12px 20px; border-top: 1px solid #333; text-align: center; } .avaliacao-master { color: #bfc6e6; font-size: 0.95em; margin-bottom: 8px; } .avaliacao-notes { color: #bfc6e6; font-size: 0.95em; } </style>`;
 
           outputArea.value = codigoTemplate;
         
